@@ -1,0 +1,80 @@
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <!-- Register Content -->
+                <div class="account-content">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-7 col-lg-6 login-left">
+                            <img src="assets/img/login-banner.png" class="img-fluid" alt="Doccure Register">
+                        </div>
+                        <div class="col-md-12 col-lg-6 login-right">
+                            <div class="login-header">
+                                <h3>Patient Register <a href="doctor-register.html">Are you a Doctor?</a></h3>
+                            </div>
+                            <form action="patient-email.html">
+                                <div *ngIf="step1">
+                                    <div class="form-group form-focus">
+                                        <input type="email" [(ngModel)]="email" name="email" class="form-control floating">
+                                        <label class="focus-label">Email</label>
+                                    </div>
+                                    <div class="form-group form-focus">
+                                        <input type="text" [(ngModel)]="prenom" name="prenom" class="form-control floating">
+                                        <label class="focus-label">Prénom</label>
+                                    </div>
+                                    <div class="form-group form-focus">
+                                        <input type="text" [(ngModel)]="nom" name="nom" class="form-control floating">
+                                        <label class="focus-label">Nom</label>
+                                    </div>
+                                </div>
+                                <div *ngIf="step2">
+                                    <div class="form-group form-focus">
+                                        <input type="number" [(ngModel)]="tel" name="tel" class="form-control floating">
+                                        <label class="focus-label">Téléphone</label>
+                                    </div>
+                                    <div class="form-group form-focus">
+                                        <input type="password" [(ngModel)]="mdp" name="pwd" class="form-control floating">
+                                        <label class="focus-label">Mot de passe</label>
+                                    </div>
+                                    <div class="form-group form-focus">
+                                        <input type="password" [(ngModel)]="confmdp" name="confpwd" class="form-control floating">
+                                        <label class="focus-label">Confirmer mot de passe</label>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <a class="forgot-link" href="#" routerLink="/login">Already have an account?</a>
+                                </div>
+                                <button *ngIf="step1" (click)="reverseSteps()" class="btn btn-primary w-100 btn-lg login-btn" type="submit">Suivant</button>
+                                <button *ngIf="step2" (click)="register()" class="btn btn-primary w-100 btn-lg login-btn" type="submit">S'inscrire</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <a data-bs-toggle="modal" href="#modal_success">Essayerrrrrrrrrrr</a> -->
+<br>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="modal_success" #content aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content doctor-profile">
+            <div class="modal-body">
+                <div class="delete-wrap text-center">
+                    <div class="del-icon" style="font-size: 50px;"><i class="fa fa-check-circle"></i></div>
+                    <h3>Inscription reussie !</h3>
+                    <p>Souhaitez-vous vous connecter ?</p>
+                    <div class="submit-section">
+                        <a href="product-category.html" class="btn btn-success me-2">Se connecter</a>
+                        <a href="#" class="btn btn-danger" data-bs-dismiss="modal">Plus tard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
