@@ -1,3 +1,20 @@
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Inscription reussie</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        Souhaitez-vous vous connecter ?
+    </div>
+    <div class="form-group row center ">
+        <div class="col-lg-12" style="margin-left: 3%;">
+            <button (click)="decline() " style="margin-left: 5%;" type="button " class="btn btn-outline-danger rounded-0  ">Non</button>
+            <button (click)="loginUser()" type="button" style="float: right;margin-right: 15%;" class="btn btn-outline-primary rounded-0 ">Oui</button>
+        </div>
+    </div>
+</ng-template>
 <!-- Page Content -->
 <div class="content">
     <div class="container-fluid">
@@ -47,7 +64,7 @@
                                     <a class="forgot-link" href="#" routerLink="/login">Already have an account?</a>
                                 </div>
                                 <button *ngIf="step1" (click)="reverseSteps()" class="btn btn-primary w-100 btn-lg login-btn" type="submit">Suivant</button>
-                                <button *ngIf="step2" (click)="register()" class="btn btn-primary w-100 btn-lg login-btn" type="submit">S'inscrire</button>
+                                <button *ngIf="step2" (click)="register(template)" class="btn btn-primary w-100 btn-lg login-btn" type="submit">S'inscrire</button>
                             </form>
                         </div>
                     </div>

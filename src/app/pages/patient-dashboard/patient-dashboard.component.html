@@ -1,0 +1,66 @@
+<!-- Page Content -->
+<div class="content">
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <!-- Profile Sidebar -->
+            <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                <app-sidenav></app-sidenav>
+            </div>
+            <!-- / Profile Sidebar -->
+            <div class="col-md-12 col-lg-12 col-xl-9">
+
+
+
+                <div class="card">
+                    <div class="card-body pt-0">
+
+                        <!-- Tab Menu -->
+                        <nav class="user-tabs mb-4">
+                            <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#pat_appointments" data-bs-toggle="tab">Mes rendez-vous</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#pat_prescriptions" data-bs-toggle="tab">Prendre rendez-vous</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#pat_medical_records" data-bs-toggle="tab"><span class="med-records">Historiques</span></a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- /Tab Menu -->
+
+                        <!-- Tab Content -->
+                        <div class="tab-content pt-0">
+
+                            <!-- Appointment Tab -->
+                            <div id="pat_appointments" class="tab-pane fade show active">
+                                <app-appointment></app-appointment>
+                            </div>
+                            <!-- /Appointment Tab -->
+
+                            <!-- Prescription Tab -->
+                            <div class="tab-pane fade" id="pat_prescriptions">
+                                <app-favourites></app-favourites>
+                            </div>
+                            <!-- /Prescription Tab -->
+
+                            <!-- Medical Records Tab -->
+                            <div id="pat_medical_records" class="tab-pane fade">
+                                <app-histories></app-histories>
+                            </div>
+                            <!-- /Medical Records Tab -->
+                        </div>
+                        <!-- Tab Content -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /Page Content -->

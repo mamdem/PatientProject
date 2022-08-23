@@ -17,29 +17,17 @@
                             </div>
                             <form action="index.html">
                                 <div class="form-group form-focus">
-                                    <input type="email" class="form-control floating">
-                                    <label class="focus-label">Email</label>
+                                    <input [(ngModel)]="tel" name="tel" type="text" class="form-control floating">
+                                    <label class="focus-label">Téléphone</label>
                                 </div>
                                 <div class="form-group form-focus">
-                                    <input type="password" class="form-control floating">
-                                    <label class="focus-label">Password</label>
+                                    <input [(ngModel)]="mdp" name="mdp" type="password" class="form-control floating">
+                                    <label class="focus-label">Mot de passe</label>
                                 </div>
                                 <div class="text-end">
-                                    <a class="forgot-link" href="forgot-password.html">Forgot Password ?</a>
+                                    <a class="forgot-link" href="forgot-password.html">Mot de passe oublié ?</a>
                                 </div>
-                                <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Login</button>
-                                <div class="login-or">
-                                    <span class="or-line"></span>
-                                    <span class="span-or">or</span>
-                                </div>
-                                <div class="row form-row social-login">
-                                    <div class="col-6">
-                                        <a href="#" class="btn btn-facebook w-100"><i class="fab fa-facebook-f me-1"></i> Login</a>
-                                    </div>
-                                    <div class="col-6">
-                                        <a href="#" class="btn btn-google w-100"><i class="fab fa-google me-1"></i> Login</a>
-                                    </div>
-                                </div>
+                                <button (click)="login()" class="btn btn-primary w-100 btn-lg login-btn" type="submit">Se connecter</button>
                                 <div class="text-center dont-have">Don’t have an account? <a href="#" routerLink="/register">Register</a></div>
                             </form>
                         </div>
@@ -53,4 +41,5 @@
     </div>
 
 </div>
+<br/>
 <!-- /Page Content -->

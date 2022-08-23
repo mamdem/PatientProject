@@ -6,44 +6,34 @@ import { VariablesService } from 'src/app/global/variables.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-appointment',
+  templateUrl: './appointment.component.html',
+  styleUrls: ['./appointment.component.scss']
 })
-export class LoginComponent implements OnInit {
-
-  tel=""
-  mdp=""
+export class AppointmentComponent implements OnInit {
 
   apiServiceUrl = environment.apiBaseUrl
+
+  allSlots: any[]=[]
 
   constructor(private toastr: ToastrManager,private http: HttpClient, private router: Router, private vari: VariablesService) { }
 
   ngOnInit(): void {
   }
 
-  login(){
-    if(this.tel!="" && this.mdp!=""){
-      this.http.post<any>(`${this.apiServiceUrl}/patient/login`, {
-        "tel":this.tel,
-        "mdp":this.mdp
-      }).subscribe(
-        (response: any)=>{
-          if(response!=null){
-            this.vari.personne=response
-            sessionStorage.setItem("user", JSON.stringify(response))
-            this.router.navigateByUrl("/patient_dashboard")
-          }else{
-            this.showError("Impossible", "Téléphone ou mot de passe incorrecte !")
-          }
-        },(error: HttpErrorResponse)=>{
-          this.showError("Erreur", error.message)
+  getAllSlots(){
+    this.http.get<any>(`${this.apiServiceUrl}/rendezvous/all/`).subscribe(
+      (response: any)=>{
+        if(response!=null){
+          this.allSlots=response
+          console.log(this.allSlots)
+        }else{
+          this.showError('Erreur serveur', "Veuillez réessayer !")
         }
-      )
-    }else{
-      this.showWarning("Impossible", "Veuillez renseigner les champs")
-    }
-    
+      },(error: HttpErrorResponse)=>{
+        this.showError("Erreur serveur", error.message)
+      }
+    )
   }
 
   showSuccess(title: string, desc: string){
@@ -63,5 +53,4 @@ export class LoginComponent implements OnInit {
       position: 'top-center'
     });
   }
-
 }

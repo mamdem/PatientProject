@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Aos from 'aos';
+import { VariablesService } from 'src/app/global/variables.service';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,7 @@ import * as Aos from 'aos';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private vari: VariablesService) { }
 
   ngOnInit(): void {
     Aos.init({duration: 800,})

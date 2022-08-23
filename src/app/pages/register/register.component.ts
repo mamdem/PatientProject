@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { VariablesService } from 'src/app/global/variables.service';
 
 @Component({
   selector: 'app-register',
@@ -17,18 +20,29 @@ export class RegisterComponent implements OnInit {
   confmdp=""
   tel=""
 
+  personne: any
+
   step1=true
   step2=false
 
   apiServiceUrl = environment.apiBaseUrl
 
-  constructor(private http: HttpClient) { }
+  modalRef?: BsModalRef;
+
+  constructor(private vari: VariablesService ,private http: HttpClient, private modalService: BsModalService, public toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
-
+    
   }
 
-  register(){
+  loginUser(){
+    this.decline()
+    sessionStorage.setItem("idpers",this.personne.idpatient )
+    this.vari.idpers=this.personne.idpersonne
+    this.router.navigateByUrl("/accueil")
+  }
+
+  register(template: TemplateRef<any>){
     if(this.email!="" && this.prenom!="" && this.nom!="" && this.mdp!="" && this.tel!=""){
       if(this.mdp===this.confmdp){
         this.http.post<any>(`${this.apiServiceUrl}/personnes/add`, {
@@ -37,23 +51,23 @@ export class RegisterComponent implements OnInit {
           "nom":this.nom,
           "prenom":this.prenom,
           "tel":this.tel,
-          "type":"patient"
         }).subscribe(
           (response: any)=>{
             if(response!=null){
-              //inscription reussie
+              this.openModal(template)
+              this.personne=response
             }else{
-    
+              this.showError('toast-top-center', 'Une erreur s\'est produite !', "Impossible")
             }
           },(error: HttpErrorResponse)=>{
-    
+            this.showError('toast-top-center', 'Une erreur s\'est produite !', "Impossible")
           }
         )
       }else{
-        //Mots de passe non identiques
+        this.showWarning('toast-top-center', 'Les mots de passe ne sont pas conforme !', "Erreur")
       }
     }else{
-      //Veuillez renseigner tous les champs
+      this.showWarning('toast-top-center', 'Veuillez renseigner tous les champs !', "Impossible")
     }
   }
 
@@ -62,4 +76,29 @@ export class RegisterComponent implements OnInit {
     this.step2=!this.step2
   }
 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template,{ class: 'modal-sm' });
+  }
+
+  decline(){
+    this.modalRef?.hide()
+  }
+
+  showWarning(positionClass: string, content: string, title: string) {
+    this.toastr.warning(content, title, {
+      positionClass
+    });
+  }
+
+  showError(positionClass: string, content: string, title: string){
+    this.toastr.warning(content, title, {
+      positionClass
+    });
+  }
+
+  showSuccess(positionClass: string, content: string, title: string) {
+    this.toastr.success(content, title, {
+      positionClass
+    });
+  }
 }
