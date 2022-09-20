@@ -18,6 +18,8 @@ import { FavouritesComponent } from './pages/favourites/favourites.component';
 import { HistoriesComponent } from './pages/histories/histories.component';
 import { PatientDashboardComponent } from './pages/patient-dashboard/patient-dashboard.component';
 import { ToastrModule } from 'ng6-toastr-notifications';
+import { DoctorProfileComponent } from './pages/doctor-profile/doctor-profile.component';
+import { DatePipe } from '@angular/common';
 // import {MatDialogModule} from '@angular/material/dialog';
 
 
@@ -35,6 +37,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     FavouritesComponent,
     HistoriesComponent,
     PatientDashboardComponent,
+    DoctorProfileComponent,
   ],
   imports: [
     FormsModule,
@@ -47,7 +50,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     ToastrModule.forRoot()
     // MatDialogModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

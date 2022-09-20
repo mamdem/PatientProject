@@ -15,10 +15,12 @@ export class AppointmentComponent implements OnInit {
   apiServiceUrl = environment.apiBaseUrl
 
   allSlots: any[]=[]
+  reservations: any[]
 
-  constructor(private toastr: ToastrManager,private http: HttpClient, private router: Router, private vari: VariablesService) { }
+  constructor(private toastr: ToastrManager,private http: HttpClient, private router: Router, public vari: VariablesService) { }
 
   ngOnInit(): void {
+    this.getAllPatientReservation()
   }
 
   getAllSlots(){
@@ -27,6 +29,20 @@ export class AppointmentComponent implements OnInit {
         if(response!=null){
           this.allSlots=response
           console.log(this.allSlots)
+        }else{
+          this.showError('Erreur serveur', "Veuillez réessayer !")
+        }
+      },(error: HttpErrorResponse)=>{
+        this.showError("Erreur serveur", error.message)
+      }
+    )
+  }
+
+  getAllPatientReservation(){
+    this.http.get<any>(`${this.apiServiceUrl}/rendezvous/patient/`+this.vari.personne.idpatient).subscribe(
+      (response: any)=>{
+        if(response!=null){
+          this.reservations=response
         }else{
           this.showError('Erreur serveur', "Veuillez réessayer !")
         }

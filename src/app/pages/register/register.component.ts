@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ToastrService } from 'ngx-toastr';
 import { VariablesService } from 'src/app/global/variables.service';
 
 @Component({
@@ -29,7 +28,7 @@ export class RegisterComponent implements OnInit {
 
   modalRef?: BsModalRef;
 
-  constructor(private vari: VariablesService ,private http: HttpClient, private modalService: BsModalService, public toastr: ToastrService, private router: Router) { }
+  constructor(private vari: VariablesService ,private http: HttpClient, private modalService: BsModalService, private router: Router) { }
 
   ngOnInit(): void {
     
@@ -39,7 +38,9 @@ export class RegisterComponent implements OnInit {
     this.decline()
     sessionStorage.setItem("idpers",this.personne.idpatient )
     this.vari.idpers=this.personne.idpersonne
-    this.router.navigateByUrl("/accueil")
+    this.vari.personne=this.personne
+    sessionStorage.setItem("user", JSON.stringify(this.personne))
+    this.router.navigateByUrl("/patient_dashboard")
   }
 
   register(template: TemplateRef<any>){
@@ -57,17 +58,17 @@ export class RegisterComponent implements OnInit {
               this.openModal(template)
               this.personne=response
             }else{
-              this.showError('toast-top-center', 'Une erreur s\'est produite !', "Impossible")
+              // this.showError('toast-top-center', 'Une erreur s\'est produite !', "Impossible")
             }
           },(error: HttpErrorResponse)=>{
-            this.showError('toast-top-center', 'Une erreur s\'est produite !', "Impossible")
+            // this.showError('toast-top-center', 'Une erreur s\'est produite !', "Impossible")
           }
         )
       }else{
-        this.showWarning('toast-top-center', 'Les mots de passe ne sont pas conforme !', "Erreur")
+        // this.showWarning('toast-top-center', 'Les mots de passe ne sont pas conforme !', "Erreur")
       }
     }else{
-      this.showWarning('toast-top-center', 'Veuillez renseigner tous les champs !', "Impossible")
+      // this.showWarning('toast-top-center', 'Veuillez renseigner tous les champs !', "Impossible")
     }
   }
 
@@ -84,21 +85,5 @@ export class RegisterComponent implements OnInit {
     this.modalRef?.hide()
   }
 
-  showWarning(positionClass: string, content: string, title: string) {
-    this.toastr.warning(content, title, {
-      positionClass
-    });
-  }
-
-  showError(positionClass: string, content: string, title: string){
-    this.toastr.warning(content, title, {
-      positionClass
-    });
-  }
-
-  showSuccess(positionClass: string, content: string, title: string) {
-    this.toastr.success(content, title, {
-      positionClass
-    });
-  }
+  
 }
